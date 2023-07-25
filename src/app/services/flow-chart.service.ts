@@ -1,3 +1,5 @@
+/*
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
@@ -203,3 +205,183 @@ export class FlowChartService {
   }
 
 }
+
+*/
+
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FlowChartService {
+  public zoneDimensions$: BehaviorSubject<[number, number]> = new BehaviorSubject([0, 0])
+  public data$: BehaviorSubject<any> = new BehaviorSubject(null)
+  public dataChild$: BehaviorSubject<any> = new BehaviorSubject(null)
+  public dataYoutubers$: BehaviorSubject<any> = new BehaviorSubject(null)
+  constructor() { }
+
+  calculateDimensions(el: HTMLElement): void {
+    const { width, height } = el.getBoundingClientRect()
+    this.zoneDimensions$.next([width - 1, height - 1])
+  }
+
+  setDataFrom(source: string): void {
+    //TODO: Aqui podemos hacer un llamado a API HTTP!
+    const httpMock: any = {
+      angular: {
+        id: 'first',
+        label: 'A',
+        data: {
+          title: 'Angular 🎁',
+          img: 'assets/icon/bx-star.svg',
+          text: 'Comineza Automation'
+        },
+        action: {
+          more: 'Ver ruta',
+          src: 'angular',
+          key: 'childs'
+        }
+      }
+    }
+    this.data$.next(httpMock[source])
+  }
+
+  setDataFromChild(source: string): void {
+    //TODO: Aqui podemos hacer un llamado a API HTTP!
+    const httpMock: any = {
+      angular: {
+        nodes: [
+
+          {
+            id: 'c1',
+            label: 'C1',
+            data: {
+              title: 'Go ANGULAR!',
+              img: 'assets/icon/add.svg',
+              text: 'Selecciona el canal de tu preferencia'
+            }
+          },
+          {
+            id: 'c2',
+            label: 'C2',
+            data: {
+              title: 'TS 🤘',
+              img: 'assets/icon/send.svg',
+              text: 'Define el tipo de envio avanzado'            },
+            action: {
+              more: 'Ver ruta',
+              src: 'ts',
+              key: 'youtubers'
+            }
+          },
+          {
+            id: 'c3',
+            label: 'C3',
+            data: {
+              title: 'Alan 🤘',
+              img: 'assets/icon/email-one.svg',
+              text: 'Envia un sms individual'
+            }
+          }
+        ],
+        links: [
+
+          {
+            id: 'a',
+            source: 'first',
+            target: 'c1',
+            label: 'is parent of'
+          }, {
+            id: 'b',
+            source: 'c1',
+            target: 'c3',
+            label: 'custom label'
+          }, {
+            id: 'd',
+            source: 'c1',
+            target: 'c2',
+            label: 'custom label'
+          }, {
+            id: 'e',
+            source: 'c2',
+            target: 'c3',
+            label: 'first link'
+          }
+        ]
+      }
+    }
+    this.dataChild$.next(httpMock[source])
+  }
+
+  setDataYoutubers(source: string): void {
+    //TODO: Aqui podemos hacer un llamado a API HTTP!
+    const httpMock: any = {
+      angular: {
+
+        links: [
+          {
+            id: 'a',
+            source: 'first',
+            target: 'c1',
+            label: 'is parent of'
+          }, {
+            id: 'b',
+            source: 'c1',
+            target: 'c3',
+            label: 'custom label'
+          }, {
+            id: 'd',
+            source: 'c1',
+            target: 'c2',
+            label: 'custom label'
+          }, {
+            id: 'e',
+            source: 'c2',
+            target: 'c3',
+            label: 'first link'
+          }
+        ]
+      },
+      ts: {
+        nodes: [
+          {
+            id: 'ts1',
+            label: 'TS1',
+            data: {
+              title: 'Go ANGULAR!',
+              img: 'assets/icon/massive.svg',
+              text: 'Envia una campaña masiva'
+            }
+          },
+          {
+            id: 'ts2',
+            label: 'TS2',
+            data: {
+              title: 'Go ANGULAR!',
+              img: 'assets/icon/time.svg',
+              text: 'Envia una campaña programada'
+            }
+          }
+        ],
+        links: [
+          {
+            id: 't1',
+            source: 'c2',
+            target: 'ts1',
+            label: 'is parent of'
+          },
+          {
+            id: 't2',
+            source: 'c2',
+            target: 'ts2',
+            label: 'is parent of'
+          }
+        ]
+      }
+    }
+    this.dataYoutubers$.next(httpMock[source])
+  }
+
+}
+

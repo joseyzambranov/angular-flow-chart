@@ -13,17 +13,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.menu = [
       {
-        name: 'ANGULAR',
+        name: 'EMPIEZA AHORA',
         action: 'get_angular_team'
       },
-      {
-        name: 'REACT',
-        action: 'get_react_team'
-      },
-      {
-        name: 'GENERAL',
-        action: 'get_general_team'
-      }
+
     ]
   }
 

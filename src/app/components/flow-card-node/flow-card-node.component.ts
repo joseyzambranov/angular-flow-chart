@@ -21,6 +21,7 @@ export class FlowCardNodeComponent implements OnInit {
       default:
         this.flowChartService.setDataFromChild(src)
         break
+
     }
 
   }

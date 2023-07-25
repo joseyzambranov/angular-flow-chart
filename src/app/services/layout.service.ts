@@ -153,10 +153,10 @@ export class DagreNodesOnlyLayout implements Layout {
 
         for (const node of this.dagreNodes) {
             if (!node.width) {
-                node.width = 20;
+                node.width = 10;
             }
             if (!node.height) {
-                node.height = 30;
+                node.height = 10;
             }
 
             // update dagre
